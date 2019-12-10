@@ -1,0 +1,17 @@
+
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteBase /
+    RewriteRule ^.*(phpinfo.php.*)$ $1 [L]
+    RewriteRule ^.*(test.php.*)$ $1 [L]
+    RewriteRule ^.*web\/(.*)\.(map|html|css|js|less|woff|otf|eot|svg|ttf|png|jpg|gif)$ apfengine/web/$1.$2 [L]
+
+    RewriteRule ^.*favicon.ico$ - [F,L]
+
+    RewriteCond %{HTTP_HOST} ^(.*)
+    RewriteRule ^(.*)$ apfengine/web/index.php?_url=/$1&domain=%1 [QSA,L]
+        
+</IfModule>

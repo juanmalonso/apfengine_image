@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
         libpq-dev \
         g++ \
+        git \
         libicu-dev \
         libxml2-dev \
 		libxslt-dev \
@@ -56,15 +57,26 @@ RUN apt-get clean \
 	&& apt-get purge --auto-remove -y g++ \
 	&& rm -rf /var/lib/apt/lists/*
 
+# COMPOSER
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 #CONFIGURE
 RUN a2enmod rewrite
 
-#ENV TIMEZONE=America/Asuncion
+#CREATE DIRECTORIES
+WORKDIR /var/www/
 
-#RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime											 
-#RUN echo "${TIMEZONE}" > /etc/timezone
+RUN mkdir share/
 
-RUN date
+WORKDIR html/
 
-RUN mkdir /var/www/nubesys
-RUN mkdir /var/www/nubesys/share
+COPY .htaccess ./
+
+#INSTALL APPENGINE
+#RUN git clone https://github.com/juanmalonso/apfengine.git
+
+#APPLY PERMISSIONS
+RUN chgrp -R www-data /var/www/html/ \
+    && chmod -R 775 /var/www/html \
+    && chmod -R g+s /var/www/html \
+    && chown -R www-data:www-data /var/www/html
