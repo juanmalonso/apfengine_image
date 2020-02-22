@@ -31,13 +31,17 @@ RUN apt-get update && apt-get install -y \
 RUN pecl install imagick \
 	&& docker-php-ext-enable imagick
 
+#PRS
+RUN pecl install psr \
+    &&  docker-php-ext-enable psr
+
 #REDIS
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis
 
 #PHALCON
-ARG PHALCON_VERSION=3.4.5
+ARG PHALCON_VERSION=4.0.1
 ARG PHALCON_EXT_PATH=php7/64bits
 
 RUN set -xe && \
