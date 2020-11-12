@@ -74,13 +74,13 @@ RUN mkdir share/
 
 WORKDIR html/
 
-#COPY .htaccess ./
+COPY .htaccess ./
 
 #INSTALL APPENGINE
-#RUN git clone https://github.com/juanmalonso/apfengine.git
+RUN git clone https://github.com/juanmalonso/apfengine.git
 
 #APPLY PERMISSIONS
-#RUN chgrp -R www-data /var/www/html/ \
-#    && chmod -R 775 /var/www/html \
-#    && chmod -R g+s /var/www/html \
-#    && chown -R www-data:www-data /var/www/html
+RUN chgrp -R www-data /var/www/html/ \
+    && chmod -R 775 /var/www/html \
+    && chmod -R g+s /var/www/html \
+    && chown -R www-data:www-data /var/www/html
