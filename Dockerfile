@@ -66,6 +66,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 #CONFIGURE
 RUN a2enmod rewrite
+RUN a2enmod ssl
 
 #CREATE DIRECTORIES
 WORKDIR /var/www/
